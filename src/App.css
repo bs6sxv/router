@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+.photo {
+  height: 25px;
+  width: 35px;
+}
+.photo2 {
+  height: 500px;
+  width: 820px;
+}
+
+.photo3 {
+  height: 500px;
+  width: 990px;
+}

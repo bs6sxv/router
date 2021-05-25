@@ -1,0 +1,25 @@
+.photo {
+  height: 25px;
+  width: 35px;
+}
+.photo2 {
+  height: 25px;
+  width: 35px;
+}
+.weather1-app {
+  display: flex;
+  flex-direction: column;
+  width: 1020px;
+  min-height: 700px;
+  /* background: #5a669e; */
+  background: linear-gradient(
+    180deg,
+    rgb(85, 104, 212) 0%,
+    rgb(182, 182, 224) 100%
+  );
+  text-align: center;
+  margin: 40px auto;
+  border-radius: 10px;
+  padding-bottom: 32px;
+  align-items: center;
+}
