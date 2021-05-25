@@ -2,20 +2,21 @@ import React from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import {Radio, RadioGroup, FormControlLabel, FormLabel, TextField, FormControl, Select, MenuItem,InputLabel, Button, IconButton} from "@material-ui/core";
 import axios from 'axios';
-import { useState } from "react";
-
+import { useState, useContext } from "react";
+import {CityContext} from "/Users/brittany/Desktop/Launch/router/src/routes/contexts/cityContext"
 
 export default function NewSearch (props) {
     const API_KEY = process.env.REACT_APP_api_key;
-    const [city, setCity] = useState("Charlottesville");
+    //const [city, setCity] = useState("Charlottesville");
+    const {city, setCity} = useContext(CityContext);
     const [address, setAddress] = useState("");
-    const [displayName, setDisplayName] = useState("Charlottesville");
+    //const [displayName, setDisplayName] = useState("");
     const [open, setOpen] = useState(false);
     const [displayType, setDisplayType] = useState("Restaurants");
     const [price, setPrice] = useState("1");
 
     const newSearch = () => {
-
+      console.log(city);
         if (address !== "") {
           const url = new URL("https://maps.googleapis.com/maps/api/place/textsearch/json?");
           url.searchParams.append("query", address);
@@ -67,9 +68,9 @@ export default function NewSearch (props) {
           
     
           if (address !== "") {
-            setDisplayName(address);
+            props.changedisName(address);
           } else {
-            setDisplayName(city);
+            props.changedisName(city);
           }
     
           if (props.type === "restaurant") {
@@ -141,7 +142,7 @@ export default function NewSearch (props) {
       <IconButton style={{marginTop:20}} onClick={newSearch}><SearchIcon/></IconButton> 
       <TextField variant="filled" style={{marginLeft:30, marginTop:20, width:300}} type="text" label="Search by Address" onChange={handleAddress} ></TextField>
       <IconButton style={{marginTop:20}} onClick={newSearch}><SearchIcon/></IconButton>    
-      <h1>{displayType} Near {displayName}</h1></div>
+      <h1>{displayType} Near {props.displayName}</h1></div>
       <h2><span>Fliter by: 
 
       <FormControl className="form" style={{width:130, marginRight:10, marginLeft:30}}>

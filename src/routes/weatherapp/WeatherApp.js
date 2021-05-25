@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from "react";
+import React, { useState , useEffect, useContext} from "react";
 import Weather from "./Components/Weather"
 import Hourly from "./Components/Hourly"
 import Weekly from "./Components/Weekly"
@@ -6,12 +6,14 @@ import { AppBar, Tab, Input, Button, IconButton, TextField} from "@material-ui/c
 import SearchIcon from "@material-ui/icons/Search";
 import { TabContext, TabList, TabPanel } from '@material-ui/lab';
 import './weather.css';
+import {CityContext} from "../contexts/cityContext"
 
 function WeatherApp() {
   const API_KEY = process.env.REACT_APP_api_key2;
   const [weather, setWeather] = useState([]);
   const [zipCode, setZipCode] =useState(22904);
-  const [city, setCity] =useState("Charlottesville");
+  //const [city, setCity] =useState("Charlottesville");
+  const {city, setCity} = useContext(CityContext);
   const [weeklyHourly, setWeeklyHourly] = useState([]);
   const [value, setValue] = React.useState(0);
  
@@ -20,6 +22,7 @@ function WeatherApp() {
   };
 
   useEffect(() => {
+      console.log(city)
       getWeather()
   }, [setWeather])
 
@@ -47,7 +50,7 @@ function WeatherApp() {
           setWeather(false);
         }
       });   
-      setCity("");
+      setCity(city);
       setValue("1");
       
   };
@@ -58,7 +61,6 @@ function WeatherApp() {
     url.searchParams.append("lon", long);
     url.searchParams.append("appid", API_KEY);
     url.searchParams.append("units", "imperial");
-    // url.searchParams.append("units", "imperial");
     console.log(url);
     fetch(url)
       .then((resp) => 

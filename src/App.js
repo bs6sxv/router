@@ -1,39 +1,29 @@
-import React, {  useState, useEffect, Fragment , Component}from "react";
+import React, {Fragment }from "react";
 import "./index.css"
-import { BrowserRouter as Router, Route, Link, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import RestaurantFinder from './routes/resfinderapp/RestaurantFinder'
 import WeatherApp from './routes/weatherapp/WeatherApp'
-import { DivIcon } from "leaflet";
 import {Button} from '@material-ui/core';
 import weatherphoto from './weatherappp.png'
 import './App.css';
 import restphoto from './restapp.png'
+import CityProvider from "./routes/contexts/cityContext"
 
 export default function App(){
 
-  const [city, setCity] = useState("Woodbridge");
-
-  // const handleCity = (e) => {
-  //   props.changeCity(e.target.value);
-  // };
   return (
+    <CityProvider>
     <Router>
       <main >
-      {/* <nav>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/weather">Weather</Link></li>
-          <li><Link to="/restaurant-finder">Restaurant Finder</Link></li>
-        </ul>
-      </nav> */}
     <Switch>
       <Route path="/" exact component={Home} />
-      <Route path="/weather"  component={()=> <Weather city={city} changeCity = {city => setCity(city)}></Weather>} />
-      <Route path="/restaurant-finder"  component={() => <Restaurant  city={city} changeCity = {city => setCity(city)}></Restaurant>} />
+      <Route path="/weather"  component={Weather}/>
+      <Route path="/restaurant-finder"  component={Restaurant} />
       <Route render={() => <h1>404: page not found</h1>} />
     </Switch>
     </main>
   </Router>
+  </CityProvider>
     );
 }
 // Home Page
@@ -43,27 +33,21 @@ const Home = () => (
   </Fragment>
   );
 // Weather Page
-const Weather = ({city, changeCity}) => (
-  // props.match.params.name
+const Weather = () => (
   <Fragment>
-    
     <Button size="large" style={{marginTop:50, marginBottom:10, marginLeft:100}} variant="contained" ><Link to="/">Go to home page</Link></Button>
     <Button   size="large" style={{marginTop:50, marginBottom:10, marginLeft:1100}} variant="contained"   > <Link to="/restaurant-finder">View Restaurants here</Link> </Button>
     <h1 style={{justifyContent: "center", alignContent: "center", display:"flex"}}>Weather App</h1>
-    <WeatherApp
-    city={city}
-    changeCity = {changeCity}></WeatherApp>
+    <WeatherApp></WeatherApp>
   </Fragment>
 );
 
-// Contact Page
-const Restaurant = ({city, changeCity}) => (
+// Restaurant Page
+const Restaurant = () => (
   <Fragment>
     <Button size="large" style={{marginTop:50, marginBottom:10, marginLeft:100}} variant="contained" ><Link to="/">Go to home page</Link></Button>
     <Button   size="large" style={{marginTop:50, marginBottom:10, marginLeft:1100}} variant="contained"   > <Link to="/weather">View Weather here</Link> </Button>
-    <RestaurantFinder
-    city={city}
-    changeCity = {changeCity}></RestaurantFinder>
+    <RestaurantFinder></RestaurantFinder>
   </Fragment>
   );
 
