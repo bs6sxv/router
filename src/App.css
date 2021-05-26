@@ -50,3 +50,77 @@
   height: 500px;
   width: 990px;
 }
+
+.btn-light {
+  background-color: #222;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+}
+.btn {
+  border: none;
+  padding: 10px 30px;
+  border-radius: 4px;
+  margin-top: 20px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s all linear;
+}
+
+.para {
+  width: 70vw;
+  transition: 0.2s all linear;
+}
+
+/* Light Mode Styles */
+
+.bg-light {
+  background-color: #b3cbf0;
+}
+
+.heading-light {
+  color: #222;
+}
+
+.para-light {
+  color: #222;
+}
+
+.btn-light {
+  background-color: #222;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* Dark Mode Styles */
+
+.bg-dark {
+  background-color: #222;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  min-width: 250vh;
+  align-items: center;
+}
+
+.heading-dark {
+  color: #dde8f8;
+}
+
+.para-dark {
+  color: #fff;
+}
+
+.btn-dark {
+  background-color: #fff;
+  color: #222;
+}
+
+body {
+  background-color: #b3cbf0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}

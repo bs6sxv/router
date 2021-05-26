@@ -4,6 +4,8 @@ import {Radio, RadioGroup, FormControlLabel, FormLabel, TextField, FormControl, 
 import axios from 'axios';
 import { useState, useContext } from "react";
 import {CityContext} from "/Users/brittany/Desktop/Launch/router/src/routes/contexts/cityContext"
+import { ThemeContext } from "/Users/brittany/Desktop/Launch/router/src/routes/contexts/ThemeContext";
+import { Renderer } from "leaflet";
 
 export default function NewSearch (props) {
     const API_KEY = process.env.REACT_APP_api_key;
@@ -14,6 +16,8 @@ export default function NewSearch (props) {
     const [open, setOpen] = useState(false);
     const [displayType, setDisplayType] = useState("Restaurants");
     const [price, setPrice] = useState("1");
+    const {state, dispatch} = useContext(ThemeContext);
+    const darkMode = state.darkMode;
 
     const newSearch = () => {
       console.log(city);
@@ -43,7 +47,8 @@ export default function NewSearch (props) {
             console.log(data.results)
             props.changeLat(data.results[0].geometry.location.lat);
             props.changeLon(data.results[0].geometry.location.lng);
-            console.log(data.results[0].geometry.location.lat)
+            props.changeAddy(data.results[0].formatted_address)
+            console.log(data.results[0].formatted_address)
           })
           
         } else {
@@ -135,17 +140,38 @@ export default function NewSearch (props) {
       const handlePrice = (e) => {
           setPrice(e.target.value)
       }
+
+
+  const handleSorted = (direction) => {
+  if (direction === "forward"){
+    const sorted = props.places.sort((a,b) =>{
+      return ( ((a.name < b.name) ? -1 : ((a.name > b.name) ? 1 : 0)))
+    }) 
+    console.log(sorted);
+    props.changePlaces(sorted);
+    console.log(props.places)
+  } else {
+    const sorted = props.places.sort((a,b) =>{
+      return -1 * ( ((a.name < b.name) ? -1 : ((a.name > b.name) ? 1 : 0)))
+  }) 
+  console.log(sorted);
+  props.changePlaces(sorted);
+  console.log(props.places)}
+  
+  }
+
     return(
-        <div>
-            <div>
+        <div >
+            <div className={darkMode ? "heading-dark" : "heading-light"}>
       <TextField variant="filled" style={{marginTop:20, width:300}} type="text" label="Search by City" onChange={handleCity} ></TextField>
       <IconButton style={{marginTop:20}} onClick={newSearch}><SearchIcon/></IconButton> 
       <TextField variant="filled" style={{marginLeft:30, marginTop:20, width:300}} type="text" label="Search by Address" onChange={handleAddress} ></TextField>
       <IconButton style={{marginTop:20}} onClick={newSearch}><SearchIcon/></IconButton>    
       <h1>{displayType} Near {props.displayName}</h1></div>
-      <h2><span>Fliter by: 
+      <div className={darkMode ? "heading-dark" : "heading-light"}>
+      <h2><span className={darkMode ? "heading-dark" : "heading-light"}>Fliter by: 
 
-      <FormControl className="form" style={{width:130, marginRight:10, marginLeft:30}}>
+      <FormControl  style={{width:130, marginRight:10, marginLeft:30}}>
         <InputLabel >Type</InputLabel>
         <Select
           open={open}
@@ -170,7 +196,10 @@ export default function NewSearch (props) {
         <FormControlLabel value="4" control={<Radio />} label="4" />
         <Button style={{marginRight: 2}} variant="contained" color="primary" onClick={searchPrice}>Go!</Button></div>
       </RadioGroup>
-      </div></span></h2>
+      <Button variant="contained" color="primary"  onClick={handleSorted("forward")}>Names (A to Z)</Button>
+      <Button variant="contained" color="primary"  onClick={handleSorted("backwards")}>Names (Z to A)</Button>
+      {/* <Button variant="contained" color="primary"  onClick={()=>sorted2}>Names (Z to A)</Button> */}
+      </div></span></h2></div>
 
         </div>
     ) 

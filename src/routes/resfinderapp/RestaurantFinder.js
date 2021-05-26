@@ -18,6 +18,8 @@ function RestaurantFinder() {
   const [type, setType] = useState("restaurant"); 
   const [displayName, setDisplayName] = useState("");
   const {city} = useContext(CityContext);
+  const [formatAddress, setFormatAddress] = useState("");
+ 
  
   useEffect(() => {
     console.log(city);
@@ -56,8 +58,10 @@ function RestaurantFinder() {
        latitude={latitude}
       longitude={longitude}
       displayName={displayName}
+      places={places}
+      formatAddress={formatAddress}
       changedisName={displayName => setDisplayName(displayName)}
-      // changeCity={props.changeCity}
+      changeAddy={formatAddress => setFormatAddress(formatAddress)}
       changePlaces = {places => setPlaces(places)}
       changeLat = {latitude => setLatitude(latitude)}
       changeLon = {longitude => setLongitude(longitude)}
@@ -69,10 +73,12 @@ function RestaurantFinder() {
         <Display 
         latitude={latitude}
         longitude={longitude}
+        formatAddress={formatAddress}
         city={places}></Display>
         </Grid>
       <Grid item sm>
       <Map 
+      formatAddress={formatAddress}
       latitude={latitude}
       longitude={longitude}
       places={places}></Map>

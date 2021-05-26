@@ -16,7 +16,7 @@ function WeatherApp() {
   const {city, setCity} = useContext(CityContext);
   const [weeklyHourly, setWeeklyHourly] = useState([]);
   const [value, setValue] = React.useState(0);
- 
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -83,19 +83,9 @@ function WeatherApp() {
 
 
   if (weather.length === 0){
-    return (
-      <div className="weather-app"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}> 
-      <h1>Weather App</h1>
-        <span><Input type="number" placeholder="Search by Zip Code" onChange={handleCurrentWeather} />
-OR
-        <Input  type="text" placeholder="Search by City" onChange={handleCity} /></span>
-        <Button onClick={getWeather}>Get Weather!</Button>
-      </div>
+    return (<div style={{justifyContent:"center", display:"flex"}}>
+        <h2>Loading...</h2>
+    </div>
     )
   }
   return (

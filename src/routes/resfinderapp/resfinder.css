@@ -1,11 +1,3 @@
-body {
-  background-color: #b3cbf0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
 .mapid {
   margin-top: 15px;
   margin-left: 70px;
